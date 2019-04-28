@@ -9,12 +9,15 @@
 
     <body>
 
-        <p id="nome"></p>
-        <p id="sobrenome"></p>
-        <p id="nomecompleto"></p>
+        <p id="nome">Caio</p>
+        <p id="sobrenome">Azevedo</p>
+        <h1 id="nomecompleto"></h1>
 
         <script>
-            
+            var nome = document.getElementById("nome");
+            var sobrenome = document.getElementById("sobrenome");
+            var nomeCompleto = document.getElementById("nomecompleto");
+            nomecompleto.textContent = "Bem vindo" + " " + nome.textContent + " " + sobrenome.textContent;
         </script>
 
     </body>
