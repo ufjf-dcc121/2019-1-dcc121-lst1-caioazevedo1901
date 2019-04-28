@@ -10,7 +10,15 @@
     <body>
         <div id="interativo">Clique-me!</div>
         <script>
-            
+            var interativo = document.getElementById("interativo");
+
+            function troca ()
+            {
+                interativo.textContent = "Funcionou!";
+            }
+
+            interativo.addEventListener("click", troca);
+
         </script>
     </body>
 
