@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Pilha</title>
+    </head>
+    <body>
+        <h1>Pilha</h1>
+        <hr><br>
+        <form name="numero">
+            <label>Entrada: <input type="number" id="entrada" required></label>
+            <br><br>
+            <input type="submit" id="empilhar" value="Empilhar">
+        </form>
+        <br>
+        <button id="desempilhar">Desempilhar</button>
+        <br><br>
+        <strong>Representação da Pilha</strong>
+        <ol></ol>
+        <script>
+            var vet=[]   
+            var formulario = document.forms.numero;
+            var campoEntrada = document.getElementById("entrada")
+            var botaoEmpilhar = document.getElementById("empilhar")
+            var botaoDesempilhar = document.getElementById("desempilhar")
+            var lista = document.getElementsByTagName("ol")[0]
+            formulario.addEventListener("submit", empilhar)
+            botaoDesempilhar.addEventListener("click", desempilhar)
+            function empilhar(e)
+            {
+                e.preventDefault()
+                vet.push(campoEntrada.value)
+                atualiza()
+            }
+            function desempilhar()
+            {
+                vet.splice(vet.length-1,1)
+                atualiza()
+            }
+            function atualiza()
+            {
+                lista.innerHTML=""
+                for (var i = vet.length-1; i >= 0; i--) 
+                {
+                    var novo = document.createElement("li")
+                    novo.innerText = vet[i]
+                    lista.appendChild(novo) 
+                }
+                formulario.reset()
+                formulario.entrada.focus()
+            }
+        </script>
+    </body>
+</html>

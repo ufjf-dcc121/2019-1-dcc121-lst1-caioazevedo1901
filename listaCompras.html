@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Lista de Compras</title> 
+    </head>
+    <body>
+        <h1>Lista de Compras</h1>
+        <hr>
+        <form name="listaCompras">
+            <label>
+                <span>Item:</span>
+                <input type="text" name="nome" required>
+            </label>
+            <br><br>
+            <label>
+                <span>Quantidade:</span> 
+                <input type="number" name="quant" required>
+            </label>
+            <br><br>
+                <input  type="submit" value="Adicionar">
+        </form>
+        <br><br>
+        <strong>Lista de produtos:</strong> 
+        <ul></ul> 
+        <hr>
+        <button id="limpar">Limpar</button>
+        <script>
+            document.forms.listaCompras.addEventListener("submit",processaEnvio)
+            var lista = document.getElementsByTagName("ul")[0]
+            var limpar = document.getElementById("limpar");
+            function processaEnvio(e){
+                e.preventDefault(); 
+                var nome = document.forms.listaCompras.nome.value
+                var quantidade = Number(document.forms.listaCompras.quant.value)
+                var novoLi = document.createElement("li")
+                novoLi.textContent = nome+" - "+quantidade
+                lista.appendChild(novoLi)
+                document.forms.listaCompras.reset();
+                document.forms.listaCompras.nome.focus();
+            }
+            limpar.addEventListener("click",function()
+            {
+                lista.innerHTML="";
+            })
+        </script>
+    </body>
+</html>

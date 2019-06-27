@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Coleção</title>
+    </head>
+    <body>
+        <h1>Animais</h1>
+        <hr><br>
+        <form name="formulario">
+            <label>
+                <span>Animal:</span>
+                <input type="text" name="nome" required>
+            </label>
+            <br><br>
+            <label>
+                <span>Altura:</span>
+                <input type="number" step="any" min="0" name="altura" required>
+            </label>
+            <br><br>
+            <label>
+                <span>Peso:</span>
+                <input type="number" step="any" min="0" name="peso" required>
+            </label>
+            <br><br>
+            <label>
+                <span>Velocidade:</span>
+                <input type="number" step="any" min="0" name="velocidade" required>
+            </label>
+            <br><br>
+            <label>
+                <span> Idade Máxima:</span>
+                <input type="number" step="any" min="0" name="idadeMax" required>
+            </label>
+            <br><br>
+            <input class="botao" type="submit" value="Inserir" required>
+        </form>
+        <br><hr>
+        <table class="animais" border="1"> 
+            <thead>
+                <tr>
+                    <th>Animal</th>
+                    <th>Altura</th>
+                    <th>Peso</th>
+                    <th>Velocidade</th>
+                    <th>Idade Máxima</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+                <tr>
+                    <td>Média:</td>
+                    <td id="mAltura"></td>
+                    <td id="mPeso"></td>
+                    <td id="mVelocidade"></td>
+                    <td id="mIdademMax"></td>
+                </tr>
+            </tfoot>
+        </table>
+        <ol>
+            <li>Mais alto: <span id="alto"></span></li>
+            <li>Mais pesado: <span id="pesado"></span></li>
+            <li>Mais veloz: <span id="veloz"></span></li>
+            <li>Mais longevo: <span id="longevo"></span></li>   
+        </ol>
+        <p>Animas acima da média do peso: <span id="acima"></span></p>
+    </body>
+    <script>
+        document.forms.formulario.addEventListener("submit",addAnimal);
+        var vetorDeDados = [];
+        var mAltura = 0;
+        var mPeso = 0;
+        var mVelocidade = 0;
+        var mIdademMax = 0;
+        var totalDeAnimais = 0;
+        function addAnimal(e)
+        {
+            e.preventDefault();
+            var formularioDeDados = document.forms.formulario;
+            var nome = formularioDeDados.nome.value;
+            var altura = formularioDeDados.altura.value;
+            var peso = formularioDeDados.peso.value;
+            var velocidade = formularioDeDados.velocidade.value;
+            var idadeMax = formularioDeDados.idadeMax.value;
+            var tbody = document.getElementsByTagName("tbody")[0];
+            var tdAltura = document.getElementById("mAltura");
+            var tdPeso = document.getElementById("mPeso");
+            var tdVelocidade = document.getElementById("mVelocidade");
+            var tdIdademMax = document.getElementById("mIdademMax");
+            salto = document.getElementById("alto");
+            spesado = document.getElementById("pesado");
+            sveloz = document.getElementById("veloz");
+            slongevo = document.getElementById("longevo");
+            novoTr = document.createElement("tr");
+            novoTdNome = document.createElement("td");
+            novoTdAltura = document.createElement("td");
+            novoTdPeso = document.createElement("td");
+            novoTdVelocidade = document.createElement("td");
+            novoTdIdademMax = document.createElement("td");
+            novoTdNome.innerText = nome;
+            novoTdAltura.innerText = altura;
+            novoTdPeso.innerText = peso;
+            novoTdVelocidade.innerText = velocidade; 
+            novoTdIdademMax.innerText = idadeMax;
+            novoTr.appendChild(novoTdNome);
+            novoTr.appendChild(novoTdAltura);
+            novoTr.appendChild(novoTdPeso);
+            novoTr.appendChild(novoTdVelocidade);
+            novoTr.appendChild(novoTdIdademMax);
+            tbody.appendChild(novoTr);
+            vetorDeDados.push({nome:nome,altura:altura,peso:peso,velocidade:velocidade,idadeMax:idadeMax});
+            var alto=0,pesado=0,veloz=0,longevo=0;
+            mAltura=mPeso=mVelocidade=mIdademMax=0;
+            for (var i = 0; i < vetorDeDados.length; i++) 
+            {
+                mAltura += Number(vetorDeDados[i].altura);
+                mPeso += Number(vetorDeDados[i].peso);
+                mVelocidade += Number(vetorDeDados[i].velocidade);
+                mIdademMax += Number(vetorDeDados[i].idadeMax);
+                if(vetorDeDados[i].altura>vetorDeDados[alto].altura) alto=i;
+                if(vetorDeDados[i].peso>vetorDeDados[pesado].peso) pesado=i;
+                if(vetorDeDados[i].velocidade>vetorDeDados[veloz].velocidade) veloz=i;
+                if(vetorDeDados[i].idadeMax>vetorDeDados[longevo].idadeMax) longevo=i;
+            }
+            tdAltura.innerText = mAltura/vetorDeDados.length;
+            tdPeso.innerText = mPeso/vetorDeDados.length;
+            tdVelocidade.innerText = mVelocidade/vetorDeDados.length;
+            tdIdademMax.innerText = mIdademMax/vetorDeDados.length;
+            salto.innerText = vetorDeDados[alto].nome;
+            spesado.innerText = vetorDeDados[pesado].nome;
+            sveloz.innerText = vetorDeDados[veloz].nome;
+            slongevo.innerText = vetorDeDados[longevo].nome;
+            var mediaDoPeso = mPeso/vetorDeDados.length;
+            var nAnimais=0;
+            var sAcima = document.getElementById("acima");
+            for (var i = 0; i < vetorDeDados.length; i++) 
+            {
+                if(vetorDeDados[i].peso>mediaDoPeso) nAnimais++;
+            }
+            sAcima.innerText = nAnimais;
+            formularioDeDados.reset();
+            formularioDeDados.nome.focus();
+        }
+    </script>
+
+</html>
